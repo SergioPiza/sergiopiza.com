@@ -49,7 +49,12 @@ a {
   background:
     radial-gradient(circle at 20% 18%, rgba(34, 211, 238, 0.1), transparent 22%),
     radial-gradient(circle at 82% 14%, rgba(45, 212, 191, 0.08), transparent 20%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.45) 35%, rgba(0, 0, 0, 0.72) 100%);
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.45) 35%,
+      rgba(0, 0, 0, 0.72) 100%
+    );
 }
 
 .site-grid {
@@ -58,14 +63,22 @@ a {
     linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
     url('/assets/noise-texture.svg');
-  background-size: 72px 72px, 72px 72px, auto;
+  background-size:
+    72px 72px,
+    72px 72px,
+    auto;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 96%);
 }
 
 .site-vignette {
   @apply absolute inset-0;
   background:
-    radial-gradient(circle at center, transparent 42%, rgba(0, 0, 0, 0.34) 68%, rgba(0, 0, 0, 0.88) 100%),
+    radial-gradient(
+      circle at center,
+      transparent 42%,
+      rgba(0, 0, 0, 0.34) 68%,
+      rgba(0, 0, 0, 0.88) 100%
+    ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.24) 100%);
 }
 
@@ -100,9 +113,9 @@ a {
 }
 
 @media (min-width: 1024px) {
-    .section-anchor {
-        scroll-margin-top: 7rem;
-    }
+  .section-anchor {
+    scroll-margin-top: 7rem;
+  }
 }
 
 .section-kicker {
@@ -279,8 +292,7 @@ a {
 
 .nav-link {
   @apply relative inline-flex items-center py-2 text-slate-300 transition;
-  transition:
-    color 140ms ease-out;
+  transition: color 140ms ease-out;
 }
 
 .nav-link::after {
@@ -330,7 +342,9 @@ a {
 
 .nav-dropdown-item {
   @apply flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm text-slate-300 transition;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
 }
 
 .nav-dropdown-item:hover {
@@ -402,14 +416,13 @@ a {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.26),
-      rgba(255, 255, 255, 0.08) 32%,
-      rgba(34, 211, 238, 0.32) 58%,
-      rgba(255, 255, 255, 0.12) 84%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.08) 32%,
+    rgba(34, 211, 238, 0.32) 58%,
+    rgba(255, 255, 255, 0.12) 84%
+  );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -438,7 +451,6 @@ a {
   z-index: 1;
 }
 
-
 .hero-panel,
 .content-card,
 .feature-card,
@@ -464,8 +476,14 @@ a {
   inset: 0;
   padding: 1px;
   border-radius: inherit;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.06) 28%, rgba(34, 211, 238, 0.3) 58%, rgba(255, 255, 255, 0.1) 78%, rgba(255, 255, 255, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0.06) 28%,
+    rgba(34, 211, 238, 0.3) 58%,
+    rgba(255, 255, 255, 0.1) 78%,
+    rgba(255, 255, 255, 0.2)
+  );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);

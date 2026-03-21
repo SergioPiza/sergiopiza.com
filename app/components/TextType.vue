@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    text: string | string[]
+    text: string | readonly string[]
     as?: string
     className?: string
     showCursor?: boolean

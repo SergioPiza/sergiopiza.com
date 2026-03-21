@@ -18,6 +18,23 @@ type ColorBendsProps = {
   noise?: number;
 };
 
+type Uniforms = {
+  uCanvas: THREE.IUniform<THREE.Vector2>;
+  uTime: THREE.IUniform<number>;
+  uSpeed: THREE.IUniform<number>;
+  uRot: THREE.IUniform<THREE.Vector2>;
+  uColorCount: THREE.IUniform<number>;
+  uColors: THREE.IUniform<THREE.Vector3[]>;
+  uTransparent: THREE.IUniform<number>;
+  uScale: THREE.IUniform<number>;
+  uFrequency: THREE.IUniform<number>;
+  uWarpStrength: THREE.IUniform<number>;
+  uPointer: THREE.IUniform<THREE.Vector2>;
+  uMouseInfluence: THREE.IUniform<number>;
+  uParallax: THREE.IUniform<number>;
+  uNoise: THREE.IUniform<number>;
+};
+
 const MAX_COLORS = 8 as const;
 
 const frag = `
@@ -123,7 +140,9 @@ const props = withDefaults(defineProps<ColorBendsProps>(), {
   warpStrength: 1,
   mouseInfluence: 1,
   parallax: 0.5,
-  noise: 0.1
+  noise: 0.1,
+  className: undefined,
+  style: undefined,
 });
 
 const containerRef = useTemplateRef('containerRef');
@@ -148,6 +167,19 @@ const isWebGLAvailable = (): boolean => {
   }
 }
 
+const toVec3 = (hex: string): THREE.Vector3 => {
+  const h = hex.replace('#', '').trim();
+  const [r = 0, g = 0, b = 0] =
+    h.length === 3
+      ? [
+          parseInt(h.charAt(0) + h.charAt(0), 16),
+          parseInt(h.charAt(1) + h.charAt(1), 16),
+          parseInt(h.charAt(2) + h.charAt(2), 16),
+        ]
+      : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+  return new THREE.Vector3(r / 255, g / 255, b / 255);
+};
+
 const setup = () => {
   if (!isWebGLAvailable()) return;
   try {
@@ -156,17 +188,10 @@ const setup = () => {
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
   const geometry = new THREE.PlaneGeometry(2, 2);
-  const toVec3 = (hex: string) => {
-    const h = hex.replace('#', '').trim();
-    const v = h.length === 3
-      ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
-      : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
-    return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
-  };
 
   const initialColors = (props.colors || []).filter(Boolean).slice(0, MAX_COLORS).map(toVec3);
   const uColorsArray = Array.from({ length: MAX_COLORS }, (_, i) =>
-    i < initialColors.length ? initialColors[i] : new THREE.Vector3(0, 0, 0)
+    i < initialColors.length ? initialColors[i]! : new THREE.Vector3(0, 0, 0)
   );
 
   const material = new THREE.ShaderMaterial({
@@ -192,6 +217,7 @@ const setup = () => {
     transparent: true
   });
   materialRef.value = material;
+  const u = material.uniforms as unknown as Uniforms;
 
   const mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
@@ -202,7 +228,7 @@ const setup = () => {
     alpha: true
   });
   rendererRef.value = renderer;
-  (renderer as any).outputColorSpace = (THREE as any).SRGBColorSpace;
+  renderer.outputColorSpace = 'srgb';
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setClearColor(0x000000, props.transparent ? 0 : 1);
   renderer.domElement.style.width = '100%';
@@ -216,35 +242,31 @@ const setup = () => {
     const w = container.clientWidth || 1;
     const h = container.clientHeight || 1;
     renderer.setSize(w, h, false);
-    (material.uniforms.uCanvas.value as THREE.Vector2).set(w, h);
+    u.uCanvas.value.set(w, h);
   };
 
   handleResize();
 
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver(handleResize);
-    ro.observe(container);
-    resizeObserverRef.value = ro;
-  } else {
-    (window as any).addEventListener('resize', handleResize);
-  }
+  const ro = new ResizeObserver(handleResize);
+  ro.observe(container);
+  resizeObserverRef.value = ro;
 
   const loop = () => {
     const dt = clock.getDelta();
     const elapsed = clock.elapsedTime;
-    material.uniforms.uTime.value = elapsed;
+    u.uTime.value = elapsed;
 
     const deg = (rotationRef.value % 360) + autoRotateRef.value * elapsed;
     const rad = (deg * Math.PI) / 180;
     const c = Math.cos(rad);
     const s = Math.sin(rad);
-    (material.uniforms.uRot.value as THREE.Vector2).set(c, s);
+    u.uRot.value.set(c, s);
 
     const cur = pointerCurrentRef.value;
     const tgt = pointerTargetRef.value;
     const amt = Math.min(1, dt * pointerSmoothRef.value);
     cur.lerp(tgt, amt);
-    (material.uniforms.uPointer.value as THREE.Vector2).copy(cur);
+    u.uPointer.value.copy(cur);
     renderer.render(scene, camera);
     rafRef.value = requestAnimationFrame(loop);
   };
@@ -262,7 +284,6 @@ const setup = () => {
   cleanup = () => {
     if (rafRef.value !== null) cancelAnimationFrame(rafRef.value);
     if (resizeObserverRef.value) resizeObserverRef.value.disconnect();
-    else window.removeEventListener('resize', handleResize);
     container.removeEventListener('pointermove', handlePointerMove);
     geometry.dispose();
     material.dispose();
@@ -286,34 +307,28 @@ watch(
     const renderer = rendererRef.value;
     if (!material) return;
 
+    const u = material.uniforms as unknown as Uniforms;
+
     rotationRef.value = props.rotation;
     autoRotateRef.value = props.autoRotate;
-    material.uniforms.uSpeed.value = props.speed;
-    material.uniforms.uScale.value = props.scale;
-    material.uniforms.uFrequency.value = props.frequency;
-    material.uniforms.uWarpStrength.value = props.warpStrength;
-    material.uniforms.uMouseInfluence.value = props.mouseInfluence;
-    material.uniforms.uParallax.value = props.parallax;
-    material.uniforms.uNoise.value = props.noise;
-
-    const toVec3 = (hex: string) => {
-      const h = hex.replace('#', '').trim();
-      const v =
-        h.length === 3
-          ? [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16)]
-          : [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
-      return new THREE.Vector3(v[0] / 255, v[1] / 255, v[2] / 255);
-    };
+    u.uSpeed.value = props.speed;
+    u.uScale.value = props.scale;
+    u.uFrequency.value = props.frequency;
+    u.uWarpStrength.value = props.warpStrength;
+    u.uMouseInfluence.value = props.mouseInfluence;
+    u.uParallax.value = props.parallax;
+    u.uNoise.value = props.noise;
 
     const arr = (props.colors || []).filter(Boolean).slice(0, MAX_COLORS).map(toVec3);
     for (let i = 0; i < MAX_COLORS; i++) {
-      const vec = (material.uniforms.uColors.value as THREE.Vector3[])[i];
-      if (i < arr.length) vec.copy(arr[i]);
-      else vec.set(0, 0, 0);
+      const vec = u.uColors.value[i];
+      const src = arr[i];
+      if (vec && i < arr.length && src) vec.copy(src);
+      else vec?.set(0, 0, 0);
     }
-    material.uniforms.uColorCount.value = arr.length;
+    u.uColorCount.value = arr.length;
+    u.uTransparent.value = props.transparent ? 1 : 0;
 
-    material.uniforms.uTransparent.value = props.transparent ? 1 : 0;
     if (renderer) renderer.setClearColor(0x000000, props.transparent ? 0 : 1);
   },
   { deep: true }

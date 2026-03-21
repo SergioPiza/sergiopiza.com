@@ -67,7 +67,7 @@ let particles: Particle[] = []
 let dummy: THREE.Object3D | null = null
 let lastMousePos = { x: 0, y: 0 }
 let lastMouseMoveTime = 0
-let virtualMouse = { x: 0, y: 0 }
+const virtualMouse = { x: 0, y: 0 }
 const pointer = { x: 0, y: 0 }
 let clock: THREE.Clock | null = null
 

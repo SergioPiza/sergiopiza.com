@@ -25,7 +25,9 @@ onMounted(async () => {
   try {
     const pdfMakeModule = await import('pdfmake/build/pdfmake')
     const vfsModule = await import('pdfmake/build/vfs_fonts')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pdfMake = (pdfMakeModule as any).default ?? pdfMakeModule
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const vfs = (vfsModule as any).default ?? vfsModule
 
     for (const [key, val] of Object.entries(vfs as Record<string, string>)) {
