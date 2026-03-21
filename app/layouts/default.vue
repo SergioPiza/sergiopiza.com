@@ -4,8 +4,12 @@ const webGLAvailable = ref(true)
 onMounted(() => {
   try {
     const canvas = document.createElement('canvas')
-    const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null
-    if (!gl) { webGLAvailable.value = false; return }
+    const gl = (canvas.getContext('webgl') ||
+      canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null
+    if (!gl) {
+      webGLAvailable.value = false
+      return
+    }
     const precision = gl.getShaderPrecisionFormat(gl.VERTEX_SHADER, gl.HIGH_FLOAT)
     webGLAvailable.value = precision !== null
   } catch {
@@ -50,8 +54,14 @@ onUnmounted(() => {
     <div class="site-background" aria-hidden="true">
       <ClientOnly>
         <template v-if="webGLAvailable">
-          <LazyAntigravityBackground class="site-antigravity" :style="{ opacity: antigravityOpacity }" />
-          <div class="absolute inset-0" :style="{ maskImage: colorBendsMask, WebkitMaskImage: colorBendsMask }">
+          <LazyAntigravityBackground
+            class="site-antigravity"
+            :style="{ opacity: antigravityOpacity }"
+          />
+          <div
+            class="absolute inset-0"
+            :style="{ maskImage: colorBendsMask, WebkitMaskImage: colorBendsMask }"
+          >
             <ColorBends
               :colors="['#0e7490', '#0891b2', '#164e63', '#083344', '#0c4a6e', '#1e3a5f']"
               :rotation="0"

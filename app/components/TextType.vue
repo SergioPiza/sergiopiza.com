@@ -123,7 +123,9 @@ watch(
       v-if="showCursor"
       :class="[
         'text-type-cursor',
-        hideCursorWhileTyping && !isDeleting && charIndex < (texts[textIndex]?.length ?? 0) ? 'opacity-0' : '',
+        hideCursorWhileTyping && !isDeleting && charIndex < (texts[textIndex]?.length ?? 0)
+          ? 'opacity-0'
+          : '',
         cursorClassName,
       ]"
     >

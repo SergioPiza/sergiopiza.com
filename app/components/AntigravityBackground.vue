@@ -237,48 +237,48 @@ function setupScene() {
 
   try {
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setSize(clientWidth, clientHeight)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
-  renderer.domElement.style.width = '100%'
-  renderer.domElement.style.height = '100%'
-  container.appendChild(renderer.domElement)
+    renderer.setSize(clientWidth, clientHeight)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+    renderer.domElement.style.width = '100%'
+    renderer.domElement.style.height = '100%'
+    container.appendChild(renderer.domElement)
 
-  scene = new THREE.Scene()
-  camera = new THREE.PerspectiveCamera(35, clientWidth / clientHeight, 0.1, 1000)
-  camera.position.z = 50
+    scene = new THREE.Scene()
+    camera = new THREE.PerspectiveCamera(35, clientWidth / clientHeight, 0.1, 1000)
+    camera.position.z = 50
 
-  const renderPass = new RenderPass(scene, camera)
-  const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(clientWidth, clientHeight),
-    0.3,  // strength
-    0.2,  // radius
-    0.1   // threshold
-  )
-  composer = new EffectComposer(renderer)
-  composer.addPass(renderPass)
-  composer.addPass(bloomPass)
+    const renderPass = new RenderPass(scene, camera)
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(clientWidth, clientHeight),
+      0.3, // strength
+      0.2, // radius
+      0.1, // threshold
+    )
+    composer = new EffectComposer(renderer)
+    composer.addPass(renderPass)
+    composer.addPass(bloomPass)
 
-  const viewport = getViewportAtDepth(camera, camera.position.z)
-  initParticles(viewport.width, viewport.height)
+    const viewport = getViewportAtDepth(camera, camera.position.z)
+    initParticles(viewport.width, viewport.height)
 
-  const geometry = createGeometry(props.particleShape)
-  const material = new THREE.MeshBasicMaterial({
-    color: props.color,
-    transparent: true,
-    opacity: 0.95,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  })
+    const geometry = createGeometry(props.particleShape)
+    const material = new THREE.MeshBasicMaterial({
+      color: props.color,
+      transparent: true,
+      opacity: 0.95,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    })
 
-  mesh = new THREE.InstancedMesh(geometry, material, props.count)
-  scene.add(mesh)
+    mesh = new THREE.InstancedMesh(geometry, material, props.count)
+    scene.add(mesh)
 
-  dummy = new THREE.Object3D()
-  clock = new THREE.Clock()
+    dummy = new THREE.Object3D()
+    clock = new THREE.Clock()
 
-  window.addEventListener('pointermove', onPointerMove, { passive: true })
-  window.addEventListener('resize', onResize)
-  animate()
+    window.addEventListener('pointermove', onPointerMove, { passive: true })
+    window.addEventListener('resize', onResize)
+    animate()
   } catch {
     cleanup()
   }

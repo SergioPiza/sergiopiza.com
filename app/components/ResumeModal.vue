@@ -41,11 +41,9 @@ onMounted(async () => {
     const doc = pdfMake.createPdf(docDef)
     const blob: Blob = await doc.getBlob()
     pdfUrl.value = URL.createObjectURL(blob)
-  }
-  catch {
+  } catch {
     hasError.value = true
-  }
-  finally {
+  } finally {
     isLoading.value = false
   }
 })
@@ -90,7 +88,9 @@ onUnmounted(() => {
         <!-- Body -->
         <div class="resume-modal-body">
           <div v-if="isLoading" class="flex h-full flex-col items-center justify-center gap-4">
-            <div class="h-9 w-9 animate-spin rounded-full border-2 border-cyan-400/20 border-t-cyan-400" />
+            <div
+              class="h-9 w-9 animate-spin rounded-full border-2 border-cyan-400/20 border-t-cyan-400"
+            />
             <p class="text-sm text-slate-400">Generating PDF…</p>
           </div>
           <div v-else-if="hasError" class="flex h-full flex-col items-center justify-center gap-3">

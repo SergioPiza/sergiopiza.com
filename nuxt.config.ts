@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   future: {
-    compatibilityVersion: 4
+    compatibilityVersion: 4,
   },
 
   devtools: { enabled: true },
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
           hid: 'description',
           name: 'description',
           content:
-            'Sergio Piza\'s portfolio website. I am a data and software engineer. Most of my work sits where data pipelines, platform decisions, and real business constraints meet.',
+            "Sergio Piza's portfolio website. I am a data and software engineer. Most of my work sits where data pipelines, platform decisions, and real business constraints meet.",
         },
         { name: 'format-detection', content: 'telephone=no' },
         { name: 'theme-color', content: '#000000' },
@@ -31,16 +31,12 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/site.webmanifest' },
       ],
-    }
+    },
   },
 
   css: ['~/assets/css/main.css'],
 
-  modules: [
-    '@nuxt/eslint',
-    '@nuxtjs/tailwindcss',
-    '@nuxt/icon',
-  ],
+  modules: ['@nuxt/eslint', '@nuxtjs/tailwindcss', '@nuxt/icon'],
 
   compatibilityDate: '2025-01-06',
 

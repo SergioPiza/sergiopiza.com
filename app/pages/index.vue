@@ -8,7 +8,7 @@ import {
   selectedWins,
   skillGroups,
 } from '~/data/profile'
-import { resumeData } from '~/data/resume';
+import { resumeData } from '~/data/resume'
 
 useSeoMeta({
   title: `${profile.firstName} ${profile.lastName} | Data Engineer`,
@@ -36,10 +36,7 @@ useHead({
         url: 'https://sergiopiza.com',
         jobTitle: profile.role,
         email: profile.contact.emailLabel,
-        sameAs: [
-          profile.contact.github,
-          profile.contact.linkedin,
-        ],
+        sameAs: [profile.contact.github, profile.contact.linkedin],
       }),
     },
   ],
@@ -65,7 +62,9 @@ const copyEmailToClipboard = async () => {
 <template>
   <main>
     <section class="hero-stage">
-      <div class="relative z-10 mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.18fr_0.82fr] lg:items-center">
+      <div
+        class="relative z-10 mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[1.18fr_0.82fr] lg:items-center"
+      >
         <div class="max-w-3xl hero-copy">
           <div class="section-kicker">
             <span class="status-dot" />
@@ -80,7 +79,9 @@ const copyEmailToClipboard = async () => {
             />
           </div>
 
-          <h1 class="mt-6 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-white md:text-7xl">
+          <h1
+            class="mt-6 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.04em] text-white md:text-7xl"
+          >
             {{ profile.heroTitle }}
           </h1>
 
@@ -89,11 +90,20 @@ const copyEmailToClipboard = async () => {
           </p>
 
           <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-            <a class="buttonLink justify-center gap-2.5" :href="profile.contact.linkedin" target="_blank" rel="noreferrer">
+            <a
+              class="buttonLink justify-center gap-2.5"
+              :href="profile.contact.linkedin"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Icon name="simple-icons:linkedin" class="text-base" />
               LinkedIn
             </a>
-            <button type="button" class="ghostButton ghostButton--emerald justify-center" @click="copyEmailToClipboard">
+            <button
+              type="button"
+              class="ghostButton ghostButton--emerald justify-center"
+              @click="copyEmailToClipboard"
+            >
               <Icon name="ph:copy-bold" class="text-base" />
               {{ emailCopied ? 'Email copied' : 'Copy email' }}
             </button>
@@ -101,7 +111,12 @@ const copyEmailToClipboard = async () => {
               <Icon name="ph:file-text-bold" class="text-base" />
               Resume
             </NuxtLink>
-            <a class="ghostButton ghostButton--black justify-center" :href="profile.contact.github" target="_blank" rel="noreferrer">
+            <a
+              class="ghostButton ghostButton--black justify-center"
+              :href="profile.contact.github"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Icon name="simple-icons:github" class="text-base" />
               GitHub
             </a>
@@ -135,7 +150,6 @@ const copyEmailToClipboard = async () => {
             </div>
           </div>
         </div> -->
-
       </div>
 
       <div class="hero-scroll">
@@ -147,7 +161,9 @@ const copyEmailToClipboard = async () => {
     <Bounded id="about" as="section" class="section-anchor">
       <div class="section-heading">
         <p class="section-eyebrow">About</p>
-        <h2 class="section-title">I like building systems that are practical, scalable, and easy for teams to work with.</h2>
+        <h2 class="section-title">
+          I like building systems that are practical, scalable, and easy for teams to work with.
+        </h2>
       </div>
 
       <div class="mt-10 grid gap-6 w-full xl:grid-cols-[0.9fr_1.1fr]">
@@ -173,9 +189,7 @@ const copyEmailToClipboard = async () => {
           <div class="flex items-center justify-between gap-4">
             <div>
               <p class="section-eyebrow">Core Stack</p>
-              <h2 class="mt-4 text-2xl font-semibold text-white">
-                The tools I use most often.
-              </h2>
+              <h2 class="mt-4 text-2xl font-semibold text-white">The tools I use most often.</h2>
             </div>
             <Icon name="ph:brackets-curly-bold" class="text-3xl text-cyan-200" />
           </div>
@@ -191,7 +205,10 @@ const copyEmailToClipboard = async () => {
 
           <div class="panel-note mt-6 text-center">
             You can find more of my skills in the
-            <a href="#skills" class="ml-1 inline-flex items-center gap-1.5 text-cyan-100 underline decoration-cyan-300/70 underline-offset-4 transition hover:text-white">
+            <a
+              href="#skills"
+              class="ml-1 inline-flex items-center gap-1.5 text-cyan-100 underline decoration-cyan-300/70 underline-offset-4 transition hover:text-white"
+            >
               Skills
               <Icon name="ph:arrow-down-bold" class="text-sm" />
             </a>
@@ -199,7 +216,6 @@ const copyEmailToClipboard = async () => {
           </div>
         </article>
       </div>
-
 
       <div class="mt-10 grid gap-6 w-full xl:grid-cols-3 sm:grid-cols-3">
         <article v-for="item in profile.principles" :key="item.title" class="content-card">
@@ -219,11 +235,17 @@ const copyEmailToClipboard = async () => {
     <Bounded id="experience" as="section" class="section-anchor">
       <div class="section-heading">
         <p class="section-eyebrow">Experience</p>
-        <h2 class="section-title">Most of my work has been in backend engineering, data platforms, and internal tooling.</h2>
+        <h2 class="section-title">
+          Most of my work has been in backend engineering, data platforms, and internal tooling.
+        </h2>
       </div>
 
       <div class="mt-10 grid gap-6">
-        <article v-for="item in resumeData.experience" :key="`${item.company}-${item.role}`" class="timeline-card">
+        <article
+          v-for="item in resumeData.experience"
+          :key="`${item.company}-${item.role}`"
+          class="timeline-card"
+        >
           <div class="timeline-meta">
             <p class="text-sm font-semibold uppercase tracking-[0.26em] text-cyan-100/70">
               {{ item.company }}
@@ -249,7 +271,11 @@ const copyEmailToClipboard = async () => {
 
             <ul class="mt-6 flex flex-wrap gap-3">
               <li v-for="tech in item.stack" :key="tech.label" class="tag tag--muted gap-2">
-                <Icon :key="`${tech.label}-${tech.icon}`" :name="tech.icon" class="text-sm text-cyan-100/90" />
+                <Icon
+                  :key="`${tech.label}-${tech.icon}`"
+                  :name="tech.icon"
+                  class="text-sm text-cyan-100/90"
+                />
                 {{ tech.label }}
               </li>
             </ul>
@@ -302,7 +328,11 @@ const copyEmailToClipboard = async () => {
             </div>
             <ul class="mt-5 flex flex-wrap gap-3">
               <li v-for="item in group.items" :key="item.label" class="tag gap-2">
-                <Icon :key="`${group.title}-${item.label}-${item.icon}`" :name="item.icon" class="text-sm text-cyan-100/90" />
+                <Icon
+                  :key="`${group.title}-${item.label}-${item.icon}`"
+                  :name="item.icon"
+                  class="text-sm text-cyan-100/90"
+                />
                 {{ item.label }}
               </li>
             </ul>
@@ -310,7 +340,7 @@ const copyEmailToClipboard = async () => {
         </div>
       </div>
     </Bounded>
-<!-- also saved for the future:
+    <!-- also saved for the future:
     <Bounded as="section" class="section-anchor">
       <div class="section-heading">
         <p class="section-eyebrow">Credentials</p>
@@ -387,21 +417,24 @@ const copyEmailToClipboard = async () => {
       <div class="contact-card contact-card--split">
         <div class="contact-copy">
           <p class="section-eyebrow">Contact</p>
-          <h2 class="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl">
+          <h2
+            class="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl"
+          >
             Have a data platform challenge, a backend project, or just a good engineering problem?
           </h2>
           <p class="mt-5 max-w-2xl text-base leading-7 text-slate-300">
-            Send me a note. I like talking about why things break and how we can make them easier to live with.
+            Send me a note. I like talking about why things break and how we can make them easier to
+            live with.
           </p>
         </div>
 
-        <aside class="contact-meta" style="text-align: center;">
+        <aside class="contact-meta" style="text-align: center">
           <p class="section-eyebrow">Reach Out</p>
 
           <button
             type="button"
             class="contact-email-copy mt-5"
-            style="text-align: center;"
+            style="text-align: center"
             @click="copyEmailToClipboard"
           >
             <span class="contact-email-copy__label">Email</span>
@@ -412,14 +445,22 @@ const copyEmailToClipboard = async () => {
           </button>
 
           <div class="contact-link-grid mt-5">
-            <a class="buttonLink justify-center" :href="profile.contact.email">
-              Open email app
-            </a>
-            <a class="ghostButton justify-center" :href="profile.contact.linkedin" target="_blank" rel="noreferrer">
+            <a class="buttonLink justify-center" :href="profile.contact.email"> Open email app </a>
+            <a
+              class="ghostButton justify-center"
+              :href="profile.contact.linkedin"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Icon name="simple-icons:linkedin" class="text-base" />
               LinkedIn
             </a>
-            <a class="ghostButton justify-center" :href="profile.contact.github" target="_blank" rel="noreferrer">
+            <a
+              class="ghostButton justify-center"
+              :href="profile.contact.github"
+              target="_blank"
+              rel="noreferrer"
+            >
               <Icon name="simple-icons:github" class="text-base" />
               GitHub
             </a>

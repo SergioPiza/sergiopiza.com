@@ -6,9 +6,7 @@ export const navigation = [
   { label: 'Contact', href: '#contact' },
 ]
 
-export const extraLinks = [
-  { label: 'Resume', href: '/resume', icon: 'ph:file-text-bold' },
-]
+export const extraLinks = [{ label: 'Resume', href: '/resume', icon: 'ph:file-text-bold' }]
 
 export const technologies = {
   Scala: { label: 'Scala', icon: 'simple-icons:scala' },
@@ -47,7 +45,7 @@ export const profile = {
   firstName: 'Sergio',
   lastName: 'Piza',
   role: 'Data Engineer and Backend Developer',
-  heroTitle: 'Hello, I\'m Sergio!',
+  heroTitle: "Hello, I'm Sergio!",
   heroSummary:
     'I enjoy figuring things out in messy, real-world situations, where trade-offs shape structure and governance, and the goal is to keep things clear and manageable.',
   quickIntro:
@@ -57,13 +55,13 @@ export const profile = {
     'Serious PRs, unserious commit messages.',
     'Strong opinions on partitioning, weak opinions on naming.',
     'SLA: “soon”',
-    'ChatGPT, write me hilarious data engineering jokes for my website.'
+    'ChatGPT, write me hilarious data engineering jokes for my website.',
   ],
   contact: {
     email: 'mailto:sergio@sergiopiza.com',
     emailLabel: 'sergio@sergiopiza.com',
     github: 'https://github.com/sergiopiza',
-    linkedin: 'https://www.linkedin.com/in/sergiopiza/'
+    linkedin: 'https://www.linkedin.com/in/sergiopiza/',
   },
   stats: [
     { value: '5+', label: 'years building software and data systems' },
@@ -139,22 +137,51 @@ export const skillGroups = [
   {
     title: 'Languages',
     icon: 'ph:code-bold',
-    items: [technologies.Scala, technologies.Python, technologies.SQL, technologies.TypeScript, technologies.CSharp, technologies.Node_js],
+    items: [
+      technologies.Scala,
+      technologies.Python,
+      technologies.SQL,
+      technologies.TypeScript,
+      technologies.CSharp,
+      technologies.Node_js,
+    ],
   },
   {
     title: 'Data and Platform',
     icon: 'ph:database-bold',
-    items: [technologies.Spark, technologies.Databricks, technologies.Airflow, technologies.AWS, technologies.Lakehouse, technologies.ETL, technologies.BatchAndStreamPipelines],
+    items: [
+      technologies.Spark,
+      technologies.Databricks,
+      technologies.Airflow,
+      technologies.AWS,
+      technologies.Lakehouse,
+      technologies.ETL,
+      technologies.BatchAndStreamPipelines,
+    ],
   },
   {
     title: 'Backend and Delivery',
     icon: 'ph:plugs-connected-bold',
-    items: [technologies.APIIntegrations, technologies.WebhookIngestion, technologies.Lambda, technologies.S3, technologies.Terraform, technologies.Observability, technologies.IaC],
+    items: [
+      technologies.APIIntegrations,
+      technologies.WebhookIngestion,
+      technologies.Lambda,
+      technologies.S3,
+      technologies.Terraform,
+      technologies.Observability,
+      technologies.IaC,
+    ],
   },
   {
     title: 'Governance and Reporting',
     icon: 'ph:shield-check-bold',
-    items: [technologies.PIIMasking, technologies.UnityCatalogABAC, technologies.RegulatoryReporting, technologies.AMLPipelines, technologies.DataQuality],
+    items: [
+      technologies.PIIMasking,
+      technologies.UnityCatalogABAC,
+      technologies.RegulatoryReporting,
+      technologies.AMLPipelines,
+      technologies.DataQuality,
+    ],
   },
 ]
 

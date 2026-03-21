@@ -1,20 +1,20 @@
-import type { resumeData } from "~/data/resume";
+import type { resumeData } from '~/data/resume'
 
-type ResumeData = typeof resumeData;
+type ResumeData = typeof resumeData
 
-const SECTION_COLOR = "#2d5282";
-const BODY = 10;
-const SECTION = 11;
+const SECTION_COLOR = '#2d5282'
+const BODY = 10
+const SECTION = 11
 
 const PAGE_WIDTHS: Record<string, number> = {
   LETTER: 612,
   A4: 595.28,
   LEGAL: 612,
   TABLOID: 792,
-};
+}
 
 function contentWidth(pageSize: string, margins: number): number {
-  return (PAGE_WIDTHS[pageSize] ?? 595.28) - margins * 2;
+  return (PAGE_WIDTHS[pageSize] ?? 595.28) - margins * 2
 }
 
 function sectionHeader(title: string, lineWidth: number) {
@@ -29,7 +29,7 @@ function sectionHeader(title: string, lineWidth: number) {
     {
       canvas: [
         {
-          type: "line",
+          type: 'line',
           x1: 0,
           y1: 0,
           x2: lineWidth,
@@ -40,13 +40,13 @@ function sectionHeader(title: string, lineWidth: number) {
       ],
       margin: [0, 0, 0, 4],
     },
-  ];
+  ]
 }
 
-export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
-  const margins = 48;
-  const lineW = contentWidth(pageSize, margins);
-  const sh = (title: string) => sectionHeader(title, lineW);
+export function buildResumeDocDef(resume: ResumeData, pageSize = 'A4') {
+  const margins = 48
+  const lineW = contentWidth(pageSize, margins)
+  const sh = (title: string) => sectionHeader(title, lineW)
 
   return {
     pageSize,
@@ -54,7 +54,7 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
     defaultStyle: {
       fontSize: BODY,
       lineHeight: 1.2,
-      color: "#111111",
+      color: '#111111',
     },
     content: [
       // ── HEADER ────────────────────────────────────────────────────────────
@@ -66,49 +66,49 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
                 text: resume.contact.website,
                 fontSize: 9.5,
                 link: resume.contact.websiteHref,
-                color: "#111111",
+                color: '#111111',
               },
               {
                 text: resume.contact.email,
                 fontSize: 9.5,
                 link: resume.contact.emailHref,
-                color: "#111111",
+                color: '#111111',
               },
             ],
-            width: "24%",
+            width: '24%',
           },
           {
             text: resume.name,
             fontSize: 20,
             bold: false,
-            alignment: "center",
-            width: "*",
+            alignment: 'center',
+            width: '*',
           },
           {
             stack: [
               {
                 text: resume.contact.linkedin,
                 fontSize: 9.5,
-                alignment: "right",
+                alignment: 'right',
                 link: resume.contact.linkedinHref,
-                color: "#111111",
+                color: '#111111',
               },
               {
                 text: resume.contact.github,
                 fontSize: 9.5,
-                alignment: "right",
+                alignment: 'right',
                 link: resume.contact.githubHref,
-                color: "#111111",
+                color: '#111111',
               },
             ],
-            width: "24%",
+            width: '24%',
           },
         ],
         margin: [0, 0, 0, 2],
       },
 
       // ── PROFESSIONAL SUMMARY ──────────────────────────────────────────────
-      ...sh("Professional Summary"),
+      ...sh('Professional Summary'),
       {
         ul: resume.summary,
         fontSize: BODY,
@@ -116,22 +116,19 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
       },
 
       // ── EDUCATION ─────────────────────────────────────────────────────────
-      ...sh("Education"),
+      ...sh('Education'),
       ...resume.education.map((edu) => ({
         columns: [
           {
-            text: [
-              { text: edu.degree, bold: true },
-              { text: `, ${edu.institution}` },
-            ],
-            width: "*",
+            text: [{ text: edu.degree, bold: true }, { text: `, ${edu.institution}` }],
+            width: '*',
             fontSize: BODY,
           },
           {
             text: edu.period,
             bold: true,
-            alignment: "right",
-            width: "auto",
+            alignment: 'right',
+            width: 'auto',
             fontSize: BODY,
           },
         ],
@@ -139,23 +136,20 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
       })),
 
       // ── WORK EXPERIENCE ───────────────────────────────────────────────────
-      ...sh("Work Experience"),
+      ...sh('Work Experience'),
       ...resume.experience.flatMap((job) => [
         {
           columns: [
             {
-              text: [
-                { text: job.role, bold: true },
-                { text: ` - ${job.company}` },
-              ],
-              width: "*",
+              text: [{ text: job.role, bold: true }, { text: ` - ${job.company}` }],
+              width: '*',
               fontSize: BODY,
             },
             {
               text: job.period,
               bold: true,
-              alignment: "right",
-              width: "auto",
+              alignment: 'right',
+              width: 'auto',
               fontSize: BODY,
             },
           ],
@@ -169,16 +163,16 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
       ]),
 
       // ── PROJECTS ──────────────────────────────────────────────────────────
-      ...sh("Projects"),
+      ...sh('Projects'),
       ...resume.projects.flatMap((project) => [
         {
           columns: [
-            { text: project.name, bold: true, width: "*", fontSize: BODY },
+            { text: project.name, bold: true, width: '*', fontSize: BODY },
             {
               text: project.period,
               bold: true,
-              alignment: "right",
-              width: "auto",
+              alignment: 'right',
+              width: 'auto',
               fontSize: BODY,
             },
           ],
@@ -192,16 +186,16 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
       ]),
 
       // ── CERTIFICATIONS ────────────────────────────────────────────────────
-      ...sh("Certifications"),
+      ...sh('Certifications'),
       {
         ul: resume.certifications.map((cert) => ({
           columns: [
             {
               text: cert.name,
-              width: "*",
-              ...("href" in cert && cert.href ? { link: cert.href } : {}),
+              width: '*',
+              ...('href' in cert && cert.href ? { link: cert.href } : {}),
             },
-            { text: cert.date, bold: true, alignment: "right", width: 56 },
+            { text: cert.date, bold: true, alignment: 'right', width: 56 },
           ],
         })),
         fontSize: BODY,
@@ -209,31 +203,25 @@ export function buildResumeDocDef(resume: ResumeData, pageSize = "A4") {
       },
 
       // ── PROGRAMMING LANGUAGES AND TECHNOLOGIES ────────────────────────────
-      ...sh("Programming Languages and Technologies"),
+      ...sh('Programming Languages and Technologies'),
       {
         ul: resume.technologies.map((tech) => ({
-          text: [
-            { text: `${tech.category}: `, bold: true },
-            { text: tech.items },
-          ],
+          text: [{ text: `${tech.category}: `, bold: true }, { text: tech.items }],
         })),
         fontSize: BODY,
         margin: [0, 2, 0, 0],
       },
 
       // ── LANGUAGES ─────────────────────────────────────────────────────────
-      ...sh("Languages"),
+      ...sh('Languages'),
       {
         columns: resume.languages.map((lang) => ({
-          text: [
-            { text: `${lang.level}  `, bold: true },
-            { text: lang.language },
-          ],
-          width: "*",
+          text: [{ text: `${lang.level}  `, bold: true }, { text: lang.language }],
+          width: '*',
           fontSize: BODY,
         })),
         margin: [0, 2, 0, 0],
       },
     ],
-  };
+  }
 }

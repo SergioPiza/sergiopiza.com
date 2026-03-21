@@ -9,9 +9,7 @@ const extraDropdownRef = ref<HTMLElement | null>(null)
 const router = useRouter()
 const sectionElements = new Map<string, HTMLElement>()
 
-const sectionHrefs = navigation
-  .map(link => link.href)
-  .filter(href => href.startsWith('#'))
+const sectionHrefs = navigation.map((link) => link.href).filter((href) => href.startsWith('#'))
 
 const updateScrolled = () => {
   isScrolled.value = window.scrollY > 18
@@ -57,7 +55,7 @@ const setupSections = () => {
 
 const route = useRoute()
 
-const isExtraActive = computed(() => extraLinks.some(link => route.path === link.href))
+const isExtraActive = computed(() => extraLinks.some((link) => route.path === link.href))
 
 const closeExtraOnOutside = (e: MouseEvent) => {
   if (extraDropdownRef.value && !extraDropdownRef.value.contains(e.target as Node)) {
@@ -65,18 +63,20 @@ const closeExtraOnOutside = (e: MouseEvent) => {
   }
 }
 
-watch(() => route.path, (path) => {
-  if (path === '/') {
-    nextTick(() => {
-      setupSections()
-      updateScrolled()
-    })
-  }
-  else {
-    sectionElements.clear()
-    activeHref.value = ''
-  }
-})
+watch(
+  () => route.path,
+  (path) => {
+    if (path === '/') {
+      nextTick(() => {
+        setupSections()
+        updateScrolled()
+      })
+    } else {
+      sectionElements.clear()
+      activeHref.value = ''
+    }
+  },
+)
 
 onMounted(() => {
   setupSections()
@@ -104,14 +104,12 @@ onBeforeUnmount(() => {
           alt="Sergio Piza"
           class="site-avatar rounded-full border border-cyan-300/25 object-cover shadow-[0_0_40px_rgba(34,211,238,0.16)]"
           :class="{ 'site-avatar--attached': !isScrolled }"
-          >
+        />
         <span class="leading-tight sm:block">
           <span class="block text-sm font-semibold uppercase tracking-[0.28em] text-cyan-100/80">
             {{ profile.firstName }} {{ profile.lastName }}
           </span>
-          <span class="block text-xs text-slate-400">
-            data & software engineer
-          </span>
+          <span class="block text-xs text-slate-400"> data & software engineer </span>
         </span>
       </NuxtLink>
 
@@ -170,16 +168,16 @@ onBeforeUnmount(() => {
       </ul>
 
       <div class="hidden items-center gap-3 lg:flex">
-        <a
-          class="ghostButton"
-          :href="profile.contact.github"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a class="ghostButton" :href="profile.contact.github" target="_blank" rel="noreferrer">
           <Icon name="simple-icons:github" class="text-base" />
           GitHub
         </a>
-        <a class="buttonLink gap-2.5" :href="profile.contact.linkedin" target="_blank" rel="noreferrer">
+        <a
+          class="buttonLink gap-2.5"
+          :href="profile.contact.linkedin"
+          target="_blank"
+          rel="noreferrer"
+        >
           <Icon name="simple-icons:linkedin" class="text-base" />
           LinkedIn
         </a>
@@ -224,7 +222,10 @@ onBeforeUnmount(() => {
         </ul>
 
         <div class="mt-4 border-t border-white/10 pt-4">
-          <p class="mb-2 text-xs uppercase tracking-[0.22em] text-slate-500" style="font-family: 'IBM Plex Mono', monospace;">
+          <p
+            class="mb-2 text-xs uppercase tracking-[0.22em] text-slate-500"
+            style="font-family: 'IBM Plex Mono', monospace"
+          >
             Extra
           </p>
           <ul class="grid gap-2">
